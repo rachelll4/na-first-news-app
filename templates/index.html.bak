@@ -1,13 +1,24 @@
 <!doctype html>
 <html lang="en">
     <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
         <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+		<!--template syntax is called Jinja; look up filters-->
 	</head>
     <body>
-		<!--template syntax is called Jinja; look up filters-->
+		<nav>
+            <a href="http://first-news-app.readthedocs.org/">
+                <img src="{{ url_for('static', filename='irelogo.png') }}">
+            </a>
+        </nav>
+		<h1 class="header">These are the 60 people who died during the L.A. riots</h1>
+		<div class="byline, header">
+			By <a href="http://first-news-app.readthedocs.org/">The First News App Tutorial</a>
+		</div>
 		<div id="map" style="width:100%; height:300px;"></div>
-        <h1>Deaths during the L.A. riots</h1>
+        <h1 class="subheader">Deaths during the L.A. riots</h1>
         <table border=1 cellpadding=7>
 			<tr>
                 <th>Name</th>
@@ -21,7 +32,6 @@
             {% for obj in object_list %}
             <tr>
 				<td><a href="{{ obj.id }}/">{{ obj.full_name }}</a></td>
-                <td>{{ obj.full_name }}</td>
                 <td>{{ obj.date }}</td>
                 <td>{{ obj.type }}</td>
                 <td>{{ obj.address }}</td>
@@ -56,13 +66,22 @@
                 {% endfor %}
               ]
             };
-            var dataLayer = L.geoJson(data, {
+			var blackIcon = L.Icon.extend({
+                options: {
+                    iconUrl: "{{ url_for('static', filename='marker-24.png') }}",
+                    iconSize: [24, 24]
+                }
+            });
+             var dataLayer = L.geoJson(data, {
+                pointToLayer: function (feature, latlng) {
+                    return L.marker(latlng, {icon: new blackIcon()});
+                },
                 onEachFeature: function(feature, layer) {
                     layer.bindPopup(
                         '<a href="' + feature.properties.id + '/">' +
                             feature.properties.full_name +
-                        '</a>
-					');
+                        '</a>'
+                    );
                 }
             });
             map.addLayer(dataLayer);
