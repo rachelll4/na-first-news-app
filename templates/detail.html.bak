@@ -1,7 +1,14 @@
 <!doctype html>
 <html lang="en">
-    <head></head>
+    <head>
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	</head>
     <body>
-        <h1>{{ object.full_name }}</h1>
+        <h1>
+            {{ object.full_name }}, a {{ object.age }} year old,
+            {{ object.race }} {{ object.gender|lower }} died on {{ object.date }}
+            in a {{ object.type|lower }} at {{ object.address }} in {{ object.neighborhood }}.
+        </h1>
     </body>
 </html>
