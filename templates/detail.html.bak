@@ -9,13 +9,12 @@
     <body>
 	    <nav>
             <a href="http://first-news-app.readthedocs.org/">
-                <img src="{{ url_for('static', filename='irelogo.png') }}">
+                <img src="../static/irelogo.png">
             </a>
         </nav>
-        
-            <h1 class= "header">{{ object.full_name }}, a {{ object.age }} year old, {{ object.race|lower }} {{ object.gender|lower }} died on {{ object.date }}
-    in a {{ object.type|lower }} at {{ object.address }} in {{ object.neighborhood }}.</h1>
-        
+        <h1 class= "header">{{ object.full_name }}, a {{ object.age }} year old, {{ object.race|lower }} {{ object.gender|lower }} died on {{ object.date }}
+    in a {{ object.type|lower }} at {{ object.address }} in {{ object.neighborhood }}.
+		</h1>
 		<div id="map" style="width:100%; height:300px;"></div>
         
 		<h1 class= "subheader">
